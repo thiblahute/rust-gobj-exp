@@ -1,4 +1,9 @@
 use std::ops::Deref;
+use std::fmt;
+
+use libc::c_char;
+use std::ffi::CStr;
+use std::str;
 
 use gobject;
 use gtypes;
@@ -38,5 +43,14 @@ impl<T> Drop for Ptr<T> {
         unsafe {
             gobject::g_object_unref(self.data as gtypes::gpointer);
         }
+    }
+}
+
+impl<T> fmt::Display for Ptr<T> {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        let c_buf: *const c_char = unsafe { gobject::g_type_name_from_instance(self.data as *mut gobject::GTypeInstance) };
+        let c_str: &CStr = unsafe { CStr::from_ptr(c_buf)  };
+        let typename = c_str.to_str().unwrap();
+        write!(f, "{}<{:p}>", typename, self.data)
     }
 }

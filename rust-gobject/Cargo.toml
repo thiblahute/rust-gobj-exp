@@ -4,6 +4,7 @@ version = "0.1.0"
 authors = ["Niko Matsakis <niko@alum.mit.edu>"]
 
 [dependencies]
+libc = "0.2.17"
 glib-sys = "0.3.1"
 gobject-2-0-sys = "*"
 gtypes = "0.2.0"

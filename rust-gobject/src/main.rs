@@ -1,5 +1,6 @@
 #![allow(dead_code)]
 
+extern crate libc;
 extern crate gobject_2_0_sys as gobject;
 extern crate gtypes as gtypes;
 #[macro_use]
@@ -94,5 +95,5 @@ lazy_static! {
 
 fn main() {
     let bar = test_foo_new();
+    println!("Test bar {}", bar)
 }
-
